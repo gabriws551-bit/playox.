@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Playox</title>
+
+<meta
+  name="description"
+  content="Playox — descubra, pesquise, jogue e compartilhe! Publique seus jogos, sites, links e projetos."
+>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --text: #171717;
+  --muted: #707070;
+  --border: #e1e4ea;
+  --primary: #5865f2;
+  --primary-dark: #4652d9;
+  --danger: #e74c3c;
+  --shadow: 0 8px 30px rgba(0,0,0,.08);
+}
+
+body.dark {
+  --bg: #101116;
+  --card: #181a21;
+  --text: #ffffff;
+  --muted: #a5a5a5;
+  --border: #2b2e38;
+  --shadow: 0 8px 30px rgba(0,0,0,.3);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: .25s;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+  height: 70px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 29px;
+  font-weight: 900;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+nav button {
+  background: transparent;
+  color: var(--text);
+  border: none;
+  padding: 10px 13px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+nav button:hover {
+  background: var(--bg);
+}
+
+.icon-button {
+  font-size: 19px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  min-height: 430px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 70px 20px;
+  background:
+    radial-gradient(circle at top left, #5865f222, transparent 35%),
+    radial-gradient(circle at bottom right, #8b5cf622, transparent 35%);
+}
+
+.hero-content {
+  max-width: 850px;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 8vw, 78px);
+  margin-bottom: 18px;
+  font-weight: 900;
+}
+
+.hero h1 span {
+  color: var(--primary);
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 19px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.search-box {
+  max-width: 700px;
+  margin: auto;
+  display: flex;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 7px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  padding: 15px;
+  font-size: 16px;
+}
+
+.search-box button {
+  border: none;
+  background: var(--primary);
+  color: white;
+  padding: 0 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.search-box button:hover {
+  background: var(--primary-dark);
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 50px auto;
+}
+
+.section {
+  margin-bottom: 60px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.section-header h2 {
+  font-size: 29px;
+}
+
+.section-header span {
+  color: var(--muted);
+}
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.category {
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 18px;
+  padding: 30px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.category:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow);
+}
+
+.category-icon {
+  font-size: 45px;
+  margin-bottom: 13px;
+}
+
+.category h3 {
+  margin-bottom: 7px;
+}
+
+.category p {
+  color: var(--muted);
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.03);
+  transition: .2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.card-image {
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 65px;
+  background:
+    linear-gradient(135deg, #5865f2, #8b5cf6);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.badge {
+  display: inline-block;
+  background: #5865f21c;
+  color: var(--primary);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  margin-bottom: 8px;
+  font-size: 21px;
+}
+
+.card p {
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 11px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.primary:hover {
+  background: var(--primary-dark);
+}
+
+.secondary {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 13px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.like-button {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.like-button.liked {
+  color: #e74c3c;
+}
+
+/* =========================
+   PUBLISH
+========================= */
+
+.publish-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  padding: 14px;
+  border-radius: 11px;
+  outline: none;
+  font-size: 15px;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.publish-button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.publish-button:hover {
+  background: var(--primary-dark);
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile {
+  display: none;
+}
+
+.profile-header {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 35px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  padding: 20px;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--card);
+  width: 100%;
+  max-width: 450px;
+  border-radius: 20px;
+  padding: 30px;
+  position: relative;
+  box-shadow: 0 20px 80px rgba(0,0,0,.3);
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.modal h2 {
+  margin-bottom: 25px;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: #171717;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  transform: translateY(120px);
+  opacity: 0;
+  transition: .3s;
+  z-index: 5000;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  border-top: 1px solid var(--border);
+  background: var(--card);
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+footer strong {
+  color: var(--primary);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 650px) {
+  header {
+    padding: 0 15px;
+  }
+
+  nav button:not(.icon-button) {
+    display: none;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .categories {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .search-box {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .search-box button {
+    padding: 14px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+  <div class="logo" onclick="home()">
+    playox.
+  </div>
+
+  <nav>
+    <button onclick="home()">🏠 Início</button>
+    <button onclick="showSection('games')">🎮 Jogos</button>
+    <button onclick="showSection('publish')">➕ Publicar</button>
+    <button onclick="showProfile()">👤 Perfil</button>
+    <button class="icon-button" onclick="toggleDarkMode()">🌙</button>
+  </nav>
+
+</header>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="home">
+
+  <div class="hero-content">
+
+    <h1>
+      Bem-vindo ao <span>Playox</span>
+    </h1>
+
+    <p>
+      Descubra, pesquise, jogue e compartilhe.
+      Publique seus jogos, sites, links e projetos.
+    </p>
+
+    <div class="search-box">
+
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Pesquisar jogos, sites ou projetos..."
+        onkeydown="searchEnter(event)"
+      >
+
+      <button onclick="searchContent()">
+        🔎 Pesquisar
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     HOME CONTENT
+========================= -->
+
+<main class="container" id="mainContent">
+
+  <section class="section">
+
+    <div class="section-header">
+      <div>
+        <h2>Explore</h2>
+        <span>Encontre o que você procura.</span>
+      </div>
+    </div>
+
+    <div class="categories">
+
+      <div class="category" onclick="filterCategory('Jogo')">
+        <div class="category-icon">🎮</div>
+        <h3>Jogos</h3>
+        <p>Descubra jogos</p>
+      </div>
+
+      <div class="category" onclick="filterCategory('Site')">
+        <div class="category-icon">🌐</div>
+        <h3>Sites</h3>
+        <p>Explore sites</p>
+      </div>
+
+      <div class="category" onclick="filterCategory('Link')">
+        <div class="category-icon">🔗</div>
+        <h3>Links</h3>
+        <p>Compartilhe links</p>
+      </div>
+
+      <div class="category" onclick="filterCategory('Projeto')">
+        <div class="category-icon">🚀</div>
+        <h3>Projetos</h3>
+        <p>Veja projetos</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="section" id="games">
+
+    <div class="section-header">
+
+      <div>
+        <h2>🔥 Conteúdos</h2>
+        <span id="resultText">
+          Conteúdos publicados no Playox
+        </span>
+      </div>
+
+    </div>
+
+    <div class="grid" id="contentGrid"></div>
+
+  </section>
+
+  <!-- =========================
+       PUBLICAR
+  ========================= -->
+
+  <section class="section" id="publish">
+
+    <div class="section-header">
+      <div>
+        <h2>📤 Publicar</h2>
+        <span>Compartilhe sua criação.</span>
+      </div>
+    </div>
+
+    <div class="publish-box">
+
+      <div class="form-group">
+
+        <label>Título</label>
+
+        <input
+          id="postTitle"
+          type="text"
+          placeholder="Ex: Meu jogo incrível"
+        >
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Descrição</label>
+
+        <textarea
+          id="postDescription"
+          placeholder="Conte sobre seu conteúdo..."
+        ></textarea>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Tipo</label>
+
+        <select id="postType">
+
+          <option value="Jogo">🎮 Jogo</option>
+
+          <option value="Site">🌐 Site</option>
+
+          <option value="Link">🔗 Link</option>
+
+          <option value="Projeto">🚀 Projeto</option>
+
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Link</label>
+
+        <input
+          id="postURL"
+          type="url"
+          placeholder="https://..."
+        >
+
+      </div>
+
+      <button
+        class="publish-button"
+        onclick="publishPost()"
+      >
+        🚀 Publicar
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- =========================
+       PROFILE
+  ========================= -->
+
+  <section class="profile" id="profile">
+
+    <div class="profile-header">
+
+      <div class="avatar" id="avatar">
+        ?
+      </div>
+
+      <div>
+
+        <h2 id="profileName">
+          Visitante
+        </h2>
+
+        <p id="profileInfo">
+          Faça login para criar seu perfil.
+        </p>
+
+      </div>
+
+    </div>
+
+    <button
+      class="primary"
+      onclick="openLogin()"
+    >
+      👤 Entrar / Criar conta
+    </button>
+
+  </section>
+
+</main>
+
+<!-- =========================
+     LOGIN MODAL
+========================= -->
+
+<div class="modal" id="loginModal">
+
+  <div class="modal-content">
+
+    <button
+      class="close"
+      onclick="closeLogin()"
+    >
+      ×
+    </button>
+
+    <h2>👤 Criar perfil</h2>
+
+    <div class="form-group">
+
+      <label>Seu nome</label>
+
+      <input
+        id="usernameInput"
+        type="text"
+        placeholder="Digite seu nome"
+      >
+
+    </div>
+
+    <button
+      class="publish-button"
+      onclick="login()"
+    >
+      Continuar
+    </button>
+
+  </div>
+
+</div>
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div class="toast" id="toast"></div>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+  <p>
+    © 2026 <strong>Playox</strong>
+  </p>
+
+  <br>
+
+  <p>
+    Crie. Publique. Jogue. Compartilhe.
+  </p>
+
+</footer>
+
+<script>
+
+/* =====================================
+   BANCO LOCAL
+===================================== */
+
+const defaultPosts = [
+
+  {
+    id: 1,
+    title: "Playox Demo Game",
+    description: "Um exemplo de jogo publicado no Playox.",
+    type: "Jogo",
+    url: "https://example.com",
+    likes: 12,
+    author: "Playox"
+  },
+
+  {
+    id: 2,
+    title: "Meu primeiro site",
+    description: "Um exemplo de site publicado.",
+    type: "Site",
+    url: "https://example.com",
+    likes: 8,
+    author: "Playox"
+  },
+
+  {
+    id: 3,
+    title: "Projeto incrível",
+    description: "Um projeto criado pela comunidade.",
+    type: "Projeto",
+    url: "https://example.com",
+    likes: 15,
+    author: "Playox"
+  }
+
+];
+
+let posts =
+  JSON.parse(localStorage.getItem("playox_posts"))
+  || defaultPosts;
+
+let user =
+  JSON.parse(localStorage.getItem("playox_user"))
+  || null;
+
+let likedPosts =
+  JSON.parse(localStorage.getItem("playox_likes"))
+  || [];
+
+
+/* =====================================
+   SALVAR
+===================================== */
+
+function savePosts() {
+
+  localStorage.setItem(
+    "playox_posts",
+    JSON.stringify(posts)
+  );
+
+}
+
+function saveLikes() {
+
+  localStorage.setItem(
+    "playox_likes",
+    JSON.stringify(likedPosts)
+  );
+
+}
+
+
+/* =====================================
+   ÍCONES
+===================================== */
+
+function getIcon(type) {
+
+  if (type === "Jogo") return "🎮";
+
+  if (type === "Site") return "🌐";
+
+  if (type === "Link") return "🔗";
+
+  if (type === "Projeto") return "🚀";
+
+  return "📦";
+
+}
+
+
+/* =====================================
+   MOSTRAR POSTS
+===================================== */
+
+function renderPosts(list = posts) {
+
+  const grid =
+    document.getElementById("contentGrid");
+
+  grid.innerHTML = "";
+
+  if (list.length === 0) {
+
+    grid.innerHTML = `
+      <div style="
+        grid-column:1/-1;
+        text-align:center;
+        padding:60px;
+        color:var(--muted);
+      ">
+        <h2>😕 Nada encontrado</h2>
+        <p>Tente pesquisar outra coisa.</p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  list.forEach(post => {
+
+    const liked =
+      likedPosts.includes(post.id);
+
+    const card =
+      document.createElement("article");
+
+    card.className = "card";
+
+    card.innerHTML = `
+
+      <div class="card-image">
+        ${getIcon(post.type)}
+      </div>
+
+      <div class="card-body">
+
+        <span class="badge">
+          ${post.type}
+        </span>
+
+        <h3>
+          ${escapeHTML(post.title)}
+        </h3>
+
+        <p>
+          ${escapeHTML(post.description)}
+        </p>
+
+        <small style="color:var(--muted)">
+          Publicado por ${escapeHTML(post.author)}
+        </small>
+
+        <br><br>
+
+        <div class="card-actions">
+
+          <button
+            class="primary"
+            onclick="openPost('${encodeURIComponent(post.url)}')"
+          >
+            Abrir
+          </button>
+
+          <button
+            class="like-button ${liked ? "liked" : ""}"
+            onclick="likePost(${post.id})"
+          >
+            ${liked ? "❤️" : "♡"} ${post.likes}
+          </button>
+
+          ${
+            user &&
+            post.author === user.name &&
+            post.id > 3
+            ?
+            `
+            <button
+              class="secondary"
+              onclick="deletePost(${post.id})"
+            >
+              🗑️
+            </button>
+            `
+            :
+            ""
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+
+/* =====================================
+   ABRIR LINK
+===================================== */
+
+function openPost(encodedURL) {
+
+  const url =
+    decodeURIComponent(encodedURL);
+
+  if (!url) {
+
+    showToast("Este conteúdo não possui link.");
+
+    return;
+
+  }
+
+  let finalURL = url;
+
+  if (
+    !url.startsWith("http://") &&
+    !url.startsWith("https://")
+  ) {
+
+    finalURL = "https://" + url;
+
+  }
+
+  window.open(
+    finalURL,
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+}
+
+
+/* =====================================
+   CURTIR
+===================================== */
+
+function likePost(id) {
+
+  const post =
+    posts.find(p => p.id === id);
+
+  if (!post) return;
+
+  if (likedPosts.includes(id)) {
+
+    likedPosts =
+      likedPosts.filter(
+        postId => postId !== id
+      );
+
+    post.likes--;
+
+  } else {
+
+    likedPosts.push(id);
+
+    post.likes++;
+
+  }
+
+  savePosts();
+  saveLikes();
+
+  renderPosts();
+
+}
+
+
+/* =====================================
+   PUBLICAR
+===================================== */
+
+function publishPost() {
+
+  const title =
+    document.getElementById("postTitle")
+    .value.trim();
+
+  const description =
+    document.getElementById("postDescription")
+    .value.trim();
+
+  const type =
+    document.getElementById("postType")
+    .value;
+
+  const url =
+    document.getElementById("postURL")
+    .value.trim();
+
+
+  if (!title) {
+
+    showToast("Digite um título.");
+
+    return;
+
+  }
+
+
+  if (!description) {
+
+    showToast("Digite uma descrição.");
+
+    return;
+
+  }
+
+
+  if (!url) {
+
+    showToast("Digite um link.");
+
+    return;
+
+  }
+
+
+  if (!user) {
+
+    showToast(
+      "Crie seu perfil antes de publicar."
+    );
+
+    openLogin();
+
+    return;
+
+  }
+
+
+  const newPost = {
+
+    id: Date.now(),
+
+    title: title,
+
+    description: description,
+
+    type: type,
+
+    url: url,
+
+    likes: 0,
+
+    author: user.name
+
+  };
+
+
+  posts.unshift(newPost);
+
+  savePosts();
+
+  document.getElementById("postTitle").value = "";
+
+  document.getElementById("postDescription").value = "";
+
+  document.getElementById("postURL").value = "";
+
+  renderPosts();
+
+  showToast("🚀 Publicado com sucesso!");
+
+  showSection("games");
+
+}
+
+
+/* =====================================
+   DELETAR
+===================================== */
+
+function deletePost(id) {
+
+  const post =
+    posts.find(p => p.id === id);
+
+  if (!post) return;
+
+  if (!confirm(
+    "Deseja realmente excluir esta publicação?"
+  )) {
+
+    return;
+
+  }
+
+  posts =
+    posts.filter(
+      p => p.id !== id
+    );
+
+  savePosts();
+
+  renderPosts();
+
+  showToast("Publicação excluída.");
+
+}
+
+
+/* =====================================
+   PESQUISA
+===================================== */
+
+function searchContent() {
+
+  const query =
+    document.getElementById("searchInput")
+    .value
+    .trim()
+    .toLowerCase();
+
+
+  if (!query) {
+
+    renderPosts();
+
+    document.getElementById("resultText")
+      .textContent =
+      "Todos os conteúdos";
+
+    return;
+
+  }
+
+
+  const results =
+    posts.filter(post =>
+
+      post.title
+        .toLowerCase()
+        .includes(query)
+
+      ||
+
+      post.description
+        .toLowerCase()
+        .includes(query)
+
+      ||
+
+      post.type
+        .toLowerCase()
+        .includes(query)
+
+      ||
+
+      post.author
+        .toLowerCase()
+        .includes(query)
+
+    );
+
+
+  renderPosts(results);
+
+  document.getElementById("resultText")
+    .textContent =
+    `${results.length} resultado(s) para "${query}"`;
+
+  document
+    .getElementById("games")
+    .scrollIntoView({
+      behavior: "smooth"
+    });
+
+}
+
+
+function searchEnter(event) {
+
+  if (event.key === "Enter") {
+
+    searchContent();
+
+  }
+
+}
+
+
+/* =====================================
+   FILTRO
+===================================== */
+
+function filterCategory(type) {
+
+  const results =
+    posts.filter(
+      post => post.type === type
+    );
+
+  renderPosts(results);
+
+  document.getElementById("resultText")
+    .textContent =
+    `Categoria: ${type}`;
+
+  document
+    .getElementById("games")
+    .scrollIntoView({
+      behavior: "smooth"
+    });
+
+}
+
+
+/* =====================================
+   NAVEGAÇÃO
+===================================== */
+
+function home() {
+
+  document.getElementById("profile")
+    .style.display = "none";
+
+  document.getElementById("home")
+    .style.display = "flex";
+
+  document.getElementById("mainContent")
+    .style.display = "block";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+function showSection(section) {
+
+  home();
+
+  setTimeout(() => {
+
+    const element =
+      document.getElementById(section);
+
+    if (element) {
+
+      element.scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }
+
+  }, 50);
+
+}
+
+
+/* =====================================
+   PERFIL
+===================================== */
+
+function showProfile() {
+
+  document.getElementById("home")
+    .style.display = "none";
+
+  document.getElementById("mainContent")
+    .style.display = "none";
+
+  document.getElementById("profile")
+    .style.display = "block";
+
+  updateProfile();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+function updateProfile() {
+
+  const name =
+    document.getElementById("profileName");
+
+  const info =
+    document.getElementById("profileInfo");
+
+  const avatar =
+    document.getElementById("avatar");
+
+
+  if (user) {
+
+    name.textContent =
+      user.name;
+
+    info.textContent =
+      "Membro do Playox";
+
+    avatar.textContent =
+      user.name
+        .charAt(0)
+        .toUpperCase();
+
+  } else {
+
+    name.textContent =
+      "Visitante";
+
+    info.textContent =
+      "Faça login para criar seu perfil.";
+
+    avatar.textContent =
+      "?";
+
+  }
+
+}
+
+
+/* =====================================
+   LOGIN
+===================================== */
+
+function openLogin() {
+
+  document
+    .getElementById("loginModal")
+    .classList.add("active");
+
+}
+
+
+function closeLogin() {
+
+  document
+    .getElementById("loginModal")
+    .classList.remove("active");
+
+}
+
+
+function login() {
+
+  const input =
+    document.getElementById("usernameInput");
+
+  const name =
+    input.value.trim();
+
+
+  if (!name) {
+
+    showToast(
+      "Digite seu nome."
+    );
+
+    return;
+
+  }
+
+
+  user = {
+
+    name: name,
+
+    createdAt: new Date()
+      .toISOString()
+
+  };
+
+
+  localStorage.setItem(
+    "playox_user",
+    JSON.stringify(user)
+  );
+
+
+  input.value = "";
+
+  closeLogin();
+
+  updateProfile();
+
+  showToast(
+    `👋 Bem-vindo, ${name}!`
+  );
+
+}
+
+
+/* =====================================
+   MODO ESCURO
+===================================== */
+
+function toggleDarkMode() {
+
+  document.body
+    .classList.toggle("dark");
+
+  const dark =
+    document.body.classList.contains("dark");
+
+  localStorage.setItem(
+    "playox_dark",
+    dark
+  );
+
+}
+
+
+/* =====================================
+   TOAST
+===================================== */
+
+let toastTimer;
+
+
+function showToast(message) {
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent =
+    message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    }, 3000);
+
+}
+
+
+/* =====================================
+   SEGURANÇA DO TEXTO
+===================================== */
+
+function escapeHTML(text) {
+
+  return String(text)
+
+    .replaceAll("&", "&amp;")
+
+    .replaceAll("<", "&lt;")
+
+    .replaceAll(">", "&gt;")
+
+    .replaceAll('"', "&quot;")
+
+    .replaceAll("'", "&#039;");
+
+}
+
+
+/* =====================================
+   INICIALIZAÇÃO
+===================================== */
+
+function initialize() {
+
+  const dark =
+    localStorage.getItem("playox_dark");
+
+  if (dark === "true") {
+
+    document.body
+      .classList.add("dark");
+
+  }
+
+  renderPosts();
+
+  updateProfile();
+
+}
+
+
+initialize();
+
+</script>
+
+</body>
+</html>
